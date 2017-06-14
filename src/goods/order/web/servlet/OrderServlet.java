@@ -9,6 +9,7 @@ import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import tools.commons.CommonUtils;
 import tools.servlet.BaseServlet;
@@ -154,6 +155,35 @@ public class OrderServlet extends BaseServlet {
 		req.setAttribute("code", "success");
 		req.setAttribute("msg", "恭喜您,交易成功");
 		return "f:/jsps/order/msg.jsp";	
+		
+	}
+	
+	/**
+	 * 恢复已取消订单
+	 */
+	public String recoverOrder(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		String oid=req.getParameter("oid");
+		Order order=orderService.loadOrder(oid);
+		List<OrderItem> orderItemList=order.getOrderItemList();
+		HttpSession session=req.getSession();
+		Object myUser=session.getAttribute("sessionUser");
+		User user=(User) myUser;
+		for(OrderItem orderItem:orderItemList){
+			CartItem cartItem=new CartItem();
+			cartItem.setQuantity(orderItem.getQuantity());
+			System.out.println(orderItem.getQuantity());
+			cartItem.setBook(orderItem.getBook());
+			System.out.println(orderItem.getBook());
+			cartItem.setUser(user);
+			System.out.println(user.toString());
+			cartItemService.add(cartItem);
+		}
+		orderService.updateStatus(oid, 0);//将订单状态置为0，表示被恢复的订单
+		
+		req.setAttribute("code", "success");
+		req.setAttribute("msg", "恭喜您,交易成功");
+		return "f:/jsps/order/recoverSuccess.jsp";	
 		
 	}
 	

@@ -86,6 +86,9 @@
 			<c:if test="${order.status eq 3 and btn eq 'confirm'}">
 				<a id="confirm" href="<c:url value='/OrderServlet?method=confirmOrder&oid=${order.oid}'/>">确认收货</a><br/>	
 			</c:if>
+			<c:if test="${order.status eq 5 and btn eq 'recovery'}">
+				<a id="confirm" href="<c:url value='/OrderServlet?method=recoverOrder&oid=${order.oid}'/>">恢复订单</a><br/>	
+			</c:if>
 		</div>
 	</div>
 </body>

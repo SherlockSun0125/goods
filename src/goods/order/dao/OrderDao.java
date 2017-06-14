@@ -180,4 +180,9 @@ public class OrderDao {
 		return findByCriteria(exprList, pc);
 	}
 	
+//	public void deleteOrder(String oid) throws SQLException{
+//		String sql="delete from t_order where oid=?";
+//		qr.update(sql, oid);
+//	}
+	
 }
