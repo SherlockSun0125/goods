@@ -126,6 +126,18 @@
 			<span class="spanTotal">合　　计：</span>
 			<span class="price_t">&yen;${order.total }</span><br/>
 		<br/>
+		<c:choose>
+		<c:when test="${order.status eq 2 and btn eq 'deliver'}">
+			<a id="deliver" href="<c:url value='/admin/AdminOrderServlet?method=deliver&oid=${order.oid}'/>">发　　货</a>
+		</c:when>
+		<c:when test="${order.status eq 1 and btn eq 'cancel'}">
+			<a id="cancel" href="<c:url value='/admin/AdminOrderServlet?method=cancel&oid=${order.oid}'/>">取　　消</a>
+		</c:when>
+		<c:otherwise>
+			<a id="looklook" href="<c:url value='/admin/AdminOrderServlet?method=findAll'/>">返　　回</a>
+		</c:otherwise>
+		</c:choose>
+		<!-- 
 	<c:if test="${order.status eq 2 and btn eq 'deliver' }">
 		<a id="deliver" href="<c:url value='/admin/AdminOrderServlet?method=deliver&oid=${order.oid}'/>">发　　货</a>
 	</c:if>
@@ -135,8 +147,7 @@
 	<c:if test="${btn eq 'looklook'}">
 		<a id="looklook" href="<c:url value='/admin/AdminOrderServlet?method=findAll'/>">返　　回</a>
 	</c:if>
-
-	
+	 -->
 		</div>
 	</div>
 </body>

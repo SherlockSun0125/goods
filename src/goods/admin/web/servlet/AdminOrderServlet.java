@@ -134,7 +134,7 @@ public class AdminOrderServlet extends BaseServlet{
 		orderService.updateStatus(oid, 5);//设置状态为取消！
 		req.setAttribute("code", "success");
 		req.setAttribute("msg", "该订单已取消！");
-		return "f:/adminjsps/msg.jsp";		
+		return "f:/adminjsps/admin/order/cancelSuccessMsg.jsp";		
 	}
 	
 	/**
@@ -160,7 +160,7 @@ public class AdminOrderServlet extends BaseServlet{
 		orderService.updateStatus(oid, 3);//设置状态为取消！
 		req.setAttribute("code", "success");
 		req.setAttribute("msg", "该订单已发货！请等待收货！");
-		return "f:/adminjsps/msg.jsp";		
+		return "f:/adminjsps/admin/order/delieverSuccessMsg.jsp";		
 	}
 }
 

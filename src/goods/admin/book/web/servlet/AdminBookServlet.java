@@ -65,7 +65,7 @@ public class AdminBookServlet extends BaseServlet {
 		bookService.edit(book);
 		req.setAttribute("msg", "修改图书成功！");
 		req.setAttribute("bid", req.getParameter("bid"));
-		return "f:/adminjsps/admin/editSuccessMsg.jsp";
+		return "f:/adminjsps/admin/book/editSuccessMsg.jsp";
 	}
 	
 	/**
