@@ -17,6 +17,9 @@
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
 	<link rel="stylesheet" type="text/css" href="<c:url value='/jsps/css/order/desc.css'/>">
+	 <style>
+  		.thing{font-weight:normal;}
+  	</style>
   </head>
   
 <body>
@@ -35,8 +38,26 @@
 	<div class="divContent">
 		<div class="div2">
 			<dl>
-				<dt>收货人信息</dt>
-				<dd>${order.address}</dd>
+				<dt>
+				<span>
+				<b>收货人账号:</b>
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				<nobr class="thing">${order.owner.loginname}</nobr>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<b>收货人电话:</b>
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				<nobr class="thing">${order.owner.phone}</nobr>
+				</span>
+				</dt>
+				<dt>
+					<span>
+						收货人信息：&nbsp;&nbsp;&nbsp;&nbsp;
+						<nobr class="thing">${order.address}</nobr>
+					</span>
+				<dt>
 			</dl>
 		</div>
 		<div class="div2">

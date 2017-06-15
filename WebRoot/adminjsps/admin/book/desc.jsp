@@ -141,7 +141,7 @@ function editForm() {
    <div class="sm">&nbsp;</div>
    <form action="<c:url value='/admin/AdminBookServlet'/>" method="post" id="form">
     <input type="hidden" name="method" id="method"/>
-   	<input type="hidden" name="bid" value="${book.bid }"/>
+   	<input type="hidden" name="bid" value="${book.bid}"/>
     <img align="top" src="<c:url value='/${book.image_w }'/>" class="tp"/>
     <div style="float:left;">
 	    <ul>

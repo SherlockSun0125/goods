@@ -114,6 +114,7 @@ public class OrderServlet extends BaseServlet {
 		req.setAttribute("order", order);
 		String btn=req.getParameter("btn");//btn值代表超链接访问类别
 		req.setAttribute("btn", btn);
+		System.out.println("orderTime="+order.getOrderTime());
 //		List<OrderItem> list=order.getOrderItemList();
 //		for(OrderItem orderItem:list){
 //			System.out.println(orderItem.getBook().getBname().substring(0,10)+":"+orderItem.getSubtotal());

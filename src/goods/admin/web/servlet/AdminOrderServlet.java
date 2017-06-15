@@ -37,10 +37,9 @@ public class AdminOrderServlet extends BaseServlet{
 	 */
 	private String getUrl(HttpServletRequest req){
 		String url= req.getRequestURI()+"?"+req.getQueryString();
-		
-		int index=url.lastIndexOf("currentPage");
+		int index=url.lastIndexOf("&currentPage=");
 		if(index!=-1){
-			url.substring(0,index);
+			url=url.substring(0,index);
 		}
 		return url;
 	}
@@ -58,7 +57,6 @@ public class AdminOrderServlet extends BaseServlet{
 		 * 2. 得到url：...
 		 */
 		String url = getUrl(req);
-		
 		/*
 		 * 4. 使用pc和cid调用service#findByCategory得到PageBean
 		 */
@@ -68,8 +66,6 @@ public class AdminOrderServlet extends BaseServlet{
 		 */
 		pb.setUrl(url);
 		req.setAttribute("pb", pb);
-		//System.out.println("+++++++++++++++++"+pb+"====================");
-		//return null;
 		return "f:/adminjsps/admin/order/list.jsp";
 	}
 	

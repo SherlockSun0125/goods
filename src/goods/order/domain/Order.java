@@ -56,5 +56,12 @@ public class Order {
 	public void setOwner(User owner) {
 		this.owner = owner;
 	}
+	@Override
+	public String toString() {
+		return "Order [oid=" + oid + ", orderTime=" + orderTime + ", total="
+				+ total + ", status=" + status + ", address=" + address
+				+ ", owner=" + owner + "]";
+	}
+	
 	
 }

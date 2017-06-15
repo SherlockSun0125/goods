@@ -3,10 +3,14 @@ package goods.user.dao;
 import goods.user.domain.User;
 
 import java.sql.SQLException;
+import java.util.Map;
+
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
+import org.apache.commons.dbutils.handlers.MapHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 
+import tools.commons.CommonUtils;
 import tools.jdbc.TxQueryRunner;
 
 /**
@@ -80,4 +84,15 @@ public class UserDao {
 		String sql = "update t_user set loginpass=? where uid=?";
 		qr.update(sql, password, uid);
 	}
+
+	public User load(String uid) throws SQLException{
+		String sql="select * from t_user where uid=?";
+		return toUser(qr.query(sql, new MapHandler(), uid));
+	}
+
+	public User toUser(Map<String, Object> map) {
+		User user = CommonUtils.toBean(map, User.class);
+		return user;
+	}
+
 }

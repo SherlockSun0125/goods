@@ -17,26 +17,73 @@
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
 	<link rel="stylesheet" type="text/css" href="<c:url value='/adminjsps/admin/css/order/desc.css'/>">
+  	<style>
+  		.thing{font-weight:normal;}
+  		#looklook {
+			background: url(/goods/images/hong_2_btn.jpg) no-repeat;
+			display: inline-block;
+			height: 34px;
+			width: 142px;
+			font-size: 20px;
+			font-weight: 900;
+			color: #fff;
+			text-align: left;
+			padding-top: 6px;
+			padding-left: 30px;
+			text-decoration: none;
+		}
+		
+		#looklook:hover {
+			background: url(/goods/images/hong_1_btn.jpg) no-repeat;
+			display: inline-block;
+			height: 34px;
+			width: 142px;
+			font-size: 20px;
+			font-weight: 900;
+			color: #fff;
+			text-align: left;
+			padding-top: 6px;
+			padding-left: 30px;
+		}
+  	</style>
   </head>
   
 <body>
 	<div class="divOrder">
-		<span>订单号：${order.oid }
-<c:choose>
-	<c:when test="${order.status eq 1 }">(等待付款)</c:when>
-	<c:when test="${order.status eq 2 }">(准备发货)</c:when>
-	<c:when test="${order.status eq 3 }">(等待确认)</c:when>
-	<c:when test="${order.status eq 4 }">(交易成功)</c:when>
-	<c:when test="${order.status eq 5 }">(已取消)</c:when>
-</c:choose>
+		<span>订单号：${order.oid}
+		<c:choose>
+			<c:when test="${order.status eq 1 }">(等待付款)</c:when>
+			<c:when test="${order.status eq 2 }">(准备发货)</c:when>
+			<c:when test="${order.status eq 3 }">(等待确认)</c:when>
+			<c:when test="${order.status eq 4 }">(交易成功)</c:when>
+			<c:when test="${order.status eq 5 }">(已取消)</c:when>
+		</c:choose>
 		　　　下单时间：${order.orderTime }
 		</span>
 	</div>
 	<div class="divRow">
 		<div class="divContent">
 			<dl>
-				<dt>收货人信息</dt>
-				<dd>${order.address }</dd>
+				<dt>
+				<span>
+				<b>收货人账号:</b>
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				<nobr class="thing">${order.owner.loginname}</nobr>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<b>收货人电话:</b>
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				<nobr class="thing">${order.owner.phone}</nobr>
+				</span>
+				</dt>
+				<dt>
+					<span>
+						收货人信息：&nbsp;&nbsp;&nbsp;&nbsp;
+						<nobr class="thing">${order.address}</nobr>
+					</span>
+				<dt>
 			</dl>
 		</div>
 		<div class="divContent">
@@ -52,7 +99,7 @@
 						</tr>
 
 
-<c:forEach items="${order.orderItemList }" var="orderItem">
+					<c:forEach items="${order.orderItemList }" var="orderItem">
 						<tr style="padding-top: 20px; padding-bottom: 20px;">
 							<td class="td" width="400px">
 								<div class="bookname">
@@ -69,12 +116,8 @@
 							<td class="td">
 								<span>&yen;${orderItem.subtotal }</span>
 							</td>			
-						</tr>
-</c:forEach>
-
-							
-							
-							
+							</tr>	
+						</c:forEach>		
 					</table>
 				</dd>
 			</dl>
@@ -82,13 +125,18 @@
 		<div class="divBtn">
 			<span class="spanTotal">合　　计：</span>
 			<span class="price_t">&yen;${order.total }</span><br/>
+		<br/>
+	<c:if test="${order.status eq 2 and btn eq 'deliver' }">
+		<a id="deliver" href="<c:url value='/admin/AdminOrderServlet?method=deliver&oid=${order.oid}'/>">发　　货</a>
+	</c:if>
+	<c:if test="${order.status eq 1 and btn eq 'cancel' }">
+		<a id="cancel" href="<c:url value='/admin/AdminOrderServlet?method=cancel&oid=${order.oid}'/>">取　　消</a>
+	</c:if>
+	<c:if test="${btn eq 'looklook'}">
+		<a id="looklook" href="<c:url value='/admin/AdminOrderServlet?method=findAll'/>">返　　回</a>
+	</c:if>
 
-<c:if test="${order.status eq 2 and btn eq 'deliver' }">
-	<a id="deliver" href="<c:url value='/admin/AdminOrderServlet?method=deliver&oid=${order.oid }'/>">发　　货</a>
-</c:if>
-<c:if test="${order.status eq 1 and btn eq 'cancel' }">
-	<a id="cancel" href="<c:url value='/admin/AdminOrderServlet?method=cancel&oid=${order.oid }'/>">取　　消</a>
-</c:if>
+	
 		</div>
 	</div>
 </body>

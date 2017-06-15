@@ -64,7 +64,8 @@ public class AdminBookServlet extends BaseServlet {
 		
 		bookService.edit(book);
 		req.setAttribute("msg", "修改图书成功！");
-		return "f:/adminjsps/msg.jsp";
+		req.setAttribute("bid", req.getParameter("bid"));
+		return "f:/adminjsps/admin/editSuccessMsg.jsp";
 	}
 	
 	/**
@@ -196,7 +197,7 @@ public class AdminBookServlet extends BaseServlet {
 		/*
 		 * 如果url中存在pc参数，截取掉，如果不存在那就不用截取。
 		 */
-		int index = url.lastIndexOf("&pc=");
+		int index = url.lastIndexOf("&currentPage=");
 		if(index != -1) {
 			url = url.substring(0, index);
 		}

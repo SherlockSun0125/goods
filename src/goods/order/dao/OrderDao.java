@@ -7,6 +7,8 @@ import goods.order.domain.OrderItem;
 import goods.page.Expression;
 import goods.page.PageBean;
 import goods.page.PageConstants;
+import goods.user.dao.UserDao;
+import goods.user.domain.User;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -24,7 +26,7 @@ import tools.commons.CommonUtils;
 import tools.jdbc.TxQueryRunner;
 public class OrderDao {
 	QueryRunner qr=new TxQueryRunner();
-	
+	private UserDao userDao=new UserDao();
 	/**
 	 * 通用查询方法
 	 */
@@ -139,9 +141,16 @@ public class OrderDao {
 	 */
 	public Order loadOrder(String oid) throws SQLException{
 		String sql="select * from t_order where oid=?";
-		Order order=qr.query(sql, new BeanHandler<Order>(Order.class),oid);
+		Map<String, Object> map = qr.query(sql, new MapHandler(), oid);
+		Order order = CommonUtils.toBean(map, Order.class);
+		Order order2 = qr.query(sql, new BeanHandler<Order>(Order.class), oid);
+		order.setOrderTime(order2.getOrderTime());
+		order2=null;
+		User user = CommonUtils.toBean(map, User.class);
+		user=userDao.load(user.getUid());
+		order.setOwner(user);
 		loadOrderItem(order);//加载所有订单条目
-		return order;
+		return order;	
 	}
 	
 	/**
