@@ -28,9 +28,9 @@
 			return true;
 		}
 	</script>
-<style type="text/css">
-	body {background: rgb(254,238,189);}
-</style>
+	<style type="text/css">
+		body {background: rgb(254,238,189);}
+	</style>
   </head>
   
   <body>
@@ -41,7 +41,7 @@
     	<input type="hidden" name="method" value="addParent"/>
     	分类名称：<input type="text" name="cname" id="cname"/><br/>
     	分类描述：<textarea rows="5" cols="50" name="desc" id="desc"></textarea><br/>
-    	<input type="submit" value="添加一级分类"/>
+    	<input type="submit" value="添加一级分类" onclick=""/>
     	<input type="button" value="返回" onclick="history.go(-1)"/>
     </form>
   </body>

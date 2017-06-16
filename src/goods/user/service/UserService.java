@@ -12,6 +12,9 @@ import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 import tools.commons.CommonUtils;
+import tools.jdbc.JdbcUtils;
+import goods.order.domain.Order;
+import goods.page.PageBean;
 import goods.user.service.exception.UserException;
 
 import goods.user.dao.UserDao;
@@ -87,6 +90,24 @@ public class UserService {
 			//2. 修改密码
 			userDao.updatePassword(uid, newPass);
 		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	/**
+	 * 查询所有
+	 * @param pc
+	 * @return
+	 */
+	public PageBean<User> findAll(int pc) {
+		try {
+			JdbcUtils.beginTransaction();
+			PageBean<User> pb = userDao.findAll(pc);
+			JdbcUtils.commitTransaction();
+			return pb;
+		} catch (SQLException e) {
+			try {
+				JdbcUtils.rollbackTransaction();
+			} catch (SQLException e1) {}
 			throw new RuntimeException(e);
 		}
 	}

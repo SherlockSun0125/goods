@@ -25,6 +25,7 @@ public class AdminServlet extends BaseServlet {
 		 */
 		Admin form=CommonUtils.toBean(req.getParameterMap(), Admin.class);
 		Admin admin=adminService.login(form);
+//		System.out.println("==============="+form);
 		if(admin==null){
 			req.setAttribute("msg","用户名或密码错误！");
 			return "/adminjsps/login.jsp";

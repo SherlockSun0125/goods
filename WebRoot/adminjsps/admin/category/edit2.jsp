@@ -40,7 +40,7 @@
   <body>
     <h3>修改2级分类</h3>
     <h1></h1>
-    <p style="font-weight: 900; color: red">${msg }</p>
+    <p style="font-weight: 900; color: red">${msg}</p>
     <form action="<c:url value='/admin/AdminCategoryServlet'/>" method="post" onsubmit="return checkForm()">
     	<input type="hidden" name="method" value="editChild"/>
     	<input type="hidden" name="cid" value="${child.cid }"/>

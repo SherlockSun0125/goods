@@ -14,6 +14,8 @@
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
+	<link rel="stylesheet" type="text/css" href="<c:url value='/jsps/pager/pager.css'/>" />
+    <script type="text/javascript" src="<c:url value='/jsps/pager/pager.js'/>"></script>
 	<link rel="stylesheet" type="text/css" href="<c:url value='/adminjsps/admin/css/category/list.css'/>">
 	<link rel="stylesheet" type="text/css" href="<c:url value='/css/css.css'/>">
   </head>
@@ -30,7 +32,7 @@
     		<th>操作</th>
     	</tr>
     	
-	<c:forEach items="${parents}" var="parent">
+	<c:forEach items="${pb.beanList}" var="parent">
 	    	<tr class="trOneLevel">
 	    		<td width="200px;">${parent.cname }</td>
 	    		<td>${parent.desc}</td>
@@ -54,5 +56,10 @@
 	</c:forEach>
 
     </table>
+  <div style="float:left; width: 100%; text-align: center;">
+		<hr/>
+		<br/>
+		<%@include file="/jsps/pager/pager.jsp" %>
+	</div>
   </body>
 </html>

@@ -1,4 +1,5 @@
+#Fri Jun 16 15:28:31 CST 2017
 eclipse.preferences.version=1
-validator.Checked=WebRoot/jsps/pager/pager.jsp
+validator.Checked=WebRoot/jsps/pager/pager.jsp,WebRoot/adminjsps/login.jsp,WebRoot/adminjsps/admin/category
 validator.Revalidate=true
 validator.Unchecked=

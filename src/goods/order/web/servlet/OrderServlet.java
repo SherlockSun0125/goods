@@ -207,6 +207,4 @@ public class OrderServlet extends BaseServlet {
 		req.setAttribute("pb", pb);
 		return "f:/jsps/order/list.jsp";
 	}
-
-
 }

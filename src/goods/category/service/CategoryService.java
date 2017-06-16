@@ -3,11 +3,15 @@ package goods.category.service;
 import java.sql.SQLException;
 import java.util.List;
 
+import tools.jdbc.JdbcUtils;
+
 import goods.category.dao.CategoryDao;
 import goods.category.domain.Category;
+import goods.order.domain.Order;
+import goods.page.PageBean;
 
 public class CategoryService {
-private CategoryDao categoryDao = new CategoryDao();
+	 CategoryDao categoryDao = new CategoryDao();
 	
 	/**
 	 * 查询指定父分类下子分类的个数
@@ -78,6 +82,17 @@ private CategoryDao categoryDao = new CategoryDao();
 	public List<Category> findAll() {
 		try {
 			return categoryDao.findAll();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	public PageBean<Category> findAllParents(int pc){
+		try {
+			JdbcUtils.beginTransaction();
+			PageBean<Category> pb = categoryDao.findAllParents(pc);
+			JdbcUtils.commitTransaction();
+			return pb;
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}

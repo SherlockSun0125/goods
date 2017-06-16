@@ -30,6 +30,7 @@
 		<a href="<c:url value='/admin/AdminCategoryServlet?method=findAll'/>">分类管理</a>
 		<a href="<c:url value='/adminjsps/admin/book/main.jsp'/>">图书管理</a>
 		<a href="<c:url value='/admin/AdminOrderServlet?method=findAll'/>">订单管理</a> 
+		<a href="<c:url value='/admin/AdminUserServlet?method=findAll'/>">用户管理</a> 
 	</span>
 </div>
   </body>

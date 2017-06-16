@@ -2,6 +2,7 @@ package goods.admin.category.web.servlet;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -13,18 +14,65 @@ import tools.servlet.BaseServlet;
 import goods.book.service.BookService;
 import goods.category.domain.Category;
 import goods.category.service.CategoryService;
+import goods.order.domain.Order;
+import goods.page.PageBean;
+import goods.user.domain.User;
 
 public class AdminCategoryServlet extends BaseServlet{
 	private CategoryService categoryService =new CategoryService();	
 	private BookService bookService = new BookService();
 	
 	/**
+	 * 获取当前页码
+	 */
+	private int getPc(HttpServletRequest req) {
+		int pc = 1;
+		String param = req.getParameter("currentPage");
+		if(param != null && !param.trim().isEmpty()) {
+			try {
+				pc = Integer.parseInt(param);
+			} catch(RuntimeException e) {}
+		}
+		return pc;
+	}
+	
+	/**
+	 * 截取url，页面中的分页导航中需要使用它做为超链接的目标！
+	 * /goods/BookServlet + methed=findByCategory&cid=xxx&currentPage=3
+	 */
+	private String getUrl(HttpServletRequest req) {
+		String url = req.getRequestURI() + "?" + req.getQueryString();
+		//如果url中存在pc参数，截取掉
+		int index = url.lastIndexOf("&currentPage=");
+		if(index != -1) {
+			url = url.substring(0, index);
+		}
+//		System.out.println("++++++++++++++url_2="+url);
+		return url;
+	}
+
+	/**
 	 * 查询所有分类
 	 */
 	public String findAll(HttpServletRequest req,HttpServletResponse resp)
 			throws ServletException, IOException{
-		List<Category> list=categoryService.findAll();
-		req.setAttribute("parents",list);
+        int pc=getPc(req);
+        System.out.println("跳转到此"+pc);
+        String url="/goods/admin/AdminCategoryServlet?method=findAll";
+        //String url=getUrl(req);
+//      Category category = (Category)req.getSession().getAttribute("sessionCategory");		
+		PageBean<Category> list=categoryService.findAllParents(pc);
+		list.setUrl(url);
+		req.setAttribute("pb", list);
+//		System.out.println("++++++++++++++url3="+url);
+//		req.setAttribute("parents", list);
+//		req.setAttribute("parents",list);
+//		System.out.println("============getCurrentPage："+list.getCurrentPage());
+//		System.out.println("============getPageCount："+list.getPageCount());
+//		System.out.println("============getTotalRecords："+list.getTotalRecords());
+//		System.out.println("============getUrl："+list.getUrl());
+//		System.out.println("============getPageSize："+list.getPageSize());
+//		System.out.println("============list："+list);
 		return "f:/adminjsps/admin/category/list.jsp";
 	}
 	
@@ -62,6 +110,7 @@ public class AdminCategoryServlet extends BaseServlet{
 		
 		categoryService.add(child);
 		return findAll(req,resp);
+		
 	}
 	
 	/**
@@ -137,6 +186,7 @@ public class AdminCategoryServlet extends BaseServlet{
 	 */
 	public String editChild(HttpServletRequest req,HttpServletResponse resp)
 			throws ServletException,IOException{
+		Map<String,String> map=req.getParameterMap();
 		Category child = CommonUtils.toBean(req.getParameterMap(), Category.class);
 		String pid = req.getParameter("pid");
 		Category parent=new Category();
@@ -145,6 +195,7 @@ public class AdminCategoryServlet extends BaseServlet{
 		
 		categoryService.edit(child);
 		return findAll(req,resp);
+		
 	}
 	
 	/**

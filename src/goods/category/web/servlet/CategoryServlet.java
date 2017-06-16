@@ -15,7 +15,35 @@ import goods.category.service.CategoryService;
 @SuppressWarnings("serial")
 public class CategoryServlet extends BaseServlet{
 	CategoryService categoryService=new CategoryService();
+	/**
+	 * 获取当前页码
+	 */
+	private int getPc(HttpServletRequest req) {
+		int pc = 1;
+		String param = req.getParameter("currentPage");
+		System.out.println("param="+param);
+		if(param != null && !param.trim().isEmpty()) {
+			try {
+				pc = Integer.parseInt(param);
+			} catch(RuntimeException e) {}
+		}
+		return pc;
+	}
 	
+	/**
+	 * 截取url，页面中的分页导航中需要使用它做为超链接的目标！
+	 * /goods/BookServlet + methed=findByCategory&cid=xxx&currentPage=3
+	 */
+	private String getUrl(HttpServletRequest req) {
+		String url = req.getRequestURI() + "?" + req.getQueryString();
+		System.out.println("url="+url);
+		//如果url中存在pc参数，截取掉
+		int index = url.lastIndexOf("&currentPage=");
+		if(index != -1) {
+			url = url.substring(0, index);
+		}
+		return url;
+	}
 	/**
 	 * 查询所有分类
 	 */

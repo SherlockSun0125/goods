@@ -1,8 +1,10 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script type="text/javascript">
-	function _go() {
+function _go() {
+		alert('111');
 		var currentPage = $("#pageCode").val();//获取文本框中的当前页码
+		alert(currentPage);
 		if(!/^[1-9]\d*$/.test(currentPage)) {//对当前页码进行整数校验
 			alert('请输入正确的页码！');
 			return;
@@ -11,7 +13,7 @@
 			alert('请输入正确的页码！');
 			return;
 		}
-		location = "${pb.url }&currentPage="+currentPage;
+		location = "${pb.url}&currentPage="+currentPage;
 	}
 </script>
 
@@ -60,7 +62,6 @@
 
 
 		</c:forEach>
-
 		<%-- 显示点点点 --%>
 		<c:if test="${end < pb.getPageCount()}">
 		<span class="spanApostrophe">...</span>
